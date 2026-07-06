@@ -168,6 +168,17 @@ Phase 2's deferred GPD fit).
 
 ## 5. Phase 4 — Eligibility & collection haircuts
 
+**Status: done, as a documented assumption model** (`src/wizarb/eligibility/`,
+`wizarb eligibility` → `reports/eligibility.md`). No CODA cause-code ingest or METAR
+storm-date matching exists (Phase 1 items 2/4 not built), so cause shares and
+compensable fractions are anchored to doc 01/04's cited sources rather than fit —
+flagged in the module docstring as the project's headline unvalidated sensitivity
+axis, exactly as PLAN.md specifies. Resulting p_eligible: **43.6% winter, 38.1%
+summer, 44.1% shoulder** at congestion_z=0 — inside the 0.35-0.55 band this section
+anticipated, with summer (ATC/ATFM-heavy) eligibility below winter (weather-heavy) as
+expected. Collection: DIY 80% paid / 6mo lag / full net; agency 90% paid / 3mo lag /
+65% net (35% contingency cut) — both documented, not measured.
+
 p_claimable = p̂_delay × p̂(non-extraordinary | delay) × p̂(paid | valid claim).
 
 - Cause-code the delayed flights where possible (CODA cause shares; strike calendars; storm

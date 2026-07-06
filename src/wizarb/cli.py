@@ -19,6 +19,7 @@ def main() -> None:
     sub.add_parser("base-rates", help="compute base-rate tables and report")
     sub.add_parser("shortlist", help="compute the ranked candidate shortlist (doc 02 §4)")
     sub.add_parser("model-backtest", help="walk-forward validate the P(delay>=3h) model ladder")
+    sub.add_parser("eligibility", help="write the documented eligibility/collection haircut table")
 
     args = parser.parse_args()
     if args.cmd == "ingest":
@@ -42,6 +43,10 @@ def main() -> None:
         from wizarb.models import walkforward
 
         print(walkforward.write_report())
+    elif args.cmd == "eligibility":
+        from wizarb.eligibility import report
+
+        print(report.write_report())
 
 
 if __name__ == "__main__":
