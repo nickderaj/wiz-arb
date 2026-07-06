@@ -45,10 +45,10 @@ Year 2025. 3,474 (cell x collection-path x wage-scenario) combinations evaluated
 | Ryanair | STANSTED→DUBLIN | 11 | agency | 0 | 0.78% | 0.323% | 143 | 30.30 | -28.35 | 0.0000 |
 | Ryanair | STANSTED→BERGAMO | 01 | agency | 0 | 0.85% | 0.320% | 143 | 30.30 | -28.35 | 0.0000 |
 | Ryanair | BIRMINGHAM→DUBLIN | 01 | agency | 0 | 0.71% | 0.287% | 143 | 30.30 | -28.39 | 0.0000 |
+| Ryanair | BIRMINGHAM→DUBLIN | 11 | diy | 0 | 0.00% | 0.000% | 220 | 30.30 | -28.79 | 0.0000 |
+| Ryanair | BIRMINGHAM→DUBLIN | 11 | agency | 0 | 0.00% | 0.000% | 143 | 30.30 | -28.79 | 0.0000 |
 | Ryanair | EDINBURGH→DUBLIN | 02 | diy | 0 | 0.00% | 0.000% | 220 | 30.30 | -28.79 | 0.0000 |
 | Ryanair | EDINBURGH→DUBLIN | 02 | agency | 0 | 0.00% | 0.000% | 143 | 30.30 | -28.79 | 0.0000 |
-| Ryanair | MANCHESTER→DUBLIN | 02 | diy | 0 | 0.00% | 0.000% | 220 | 30.30 | -28.79 | 0.0000 |
-| Ryanair | MANCHESTER→DUBLIN | 02 | agency | 0 | 0.00% | 0.000% | 143 | 30.30 | -28.79 | 0.0000 |
-| Ryanair | BIRMINGHAM→DUBLIN | 11 | diy | 0 | 0.00% | 0.000% | 220 | 30.30 | -28.79 | 0.0000 |
+| Ryanair | EDINBURGH→DUBLIN | 11 | diy | 0 | 0.00% | 0.000% | 220 | 30.30 | -28.79 | 0.0000 |
 
 **Not priced (see `ev/engine.py` docstring):** missed-connection uplift, cancellation/re-routing legs, duty-of-care in-kind value — all require single-booking itinerary or per-flight cause data this pipeline never ingested. Only the pure-function band-edge screen (378 of 3,474 rows flagged within 150km of a compensation breakpoint) is included.

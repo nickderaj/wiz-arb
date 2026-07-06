@@ -52,7 +52,7 @@ def _rates(df: pl.DataFrame, keys: list[str]) -> pl.DataFrame:
             (pl.col("delay_min_weighted") / pl.col("n_flights")).alias("avg_delay_min"),
         )
         .drop("delay_min_weighted")
-        .sort("p_ge_3h", descending=True)
+        .sort(["p_ge_3h"] + keys, descending=[True] + [False] * len(keys))
     )
 
 

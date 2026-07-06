@@ -6,7 +6,7 @@ import logging
 from pathlib import Path
 
 from wizarb.config import REPORTS
-from wizarb.eligibility.haircuts import CAUSE_MIX, COMPENSABLE_SHARE, cause_mix, collection_outcome, eligibility_share
+from wizarb.eligibility.haircuts import CAUSE_MIX, COMPENSABLE_SHARE, collection_outcome, eligibility_share
 
 log = logging.getLogger(__name__)
 

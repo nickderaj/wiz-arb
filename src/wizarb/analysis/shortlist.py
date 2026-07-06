@@ -100,7 +100,10 @@ def build_shortlist(
             "assumed_fare_gbp",
             "gross_screening_ratio",
         ]
-    ).sort("gross_screening_ratio", descending=True)
+    ).sort(
+        ["gross_screening_ratio", "carrier_group", "reporting_airport", "origin_destination", "month"],
+        descending=[True, False, False, False, False],
+    )
     return ranked, n_dropped
 
 

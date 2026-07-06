@@ -68,7 +68,7 @@ class FittedModel:
 def fit_logistic(train: pl.DataFrame) -> FittedModel:
     Xw, y, w = _expand(train)
     X = Xw.select(FEATURE_COLS).to_pandas()
-    pipe = _pipeline(LogisticRegression(max_iter=1000))
+    pipe = _pipeline(LogisticRegression(max_iter=1000, random_state=42))
     pipe.fit(X, y, est__sample_weight=w)
     return FittedModel("logistic", pipe)
 
@@ -81,6 +81,7 @@ def fit_gbm(train: pl.DataFrame) -> FittedModel:
         max_leaf_nodes=15,
         min_samples_leaf=50,
         learning_rate=0.05,
+        random_state=42,
     )
     pipe = _pipeline(est)
     pipe.fit(X, y, est__sample_weight=w)
