@@ -3,9 +3,12 @@
 **Working title:** _Pricing the Lottery Ticket in Every Budget Airline Fare: A Quantitative
 Analysis of EU261 Delay-Compensation Expected Value_
 
-**Status:** Legal/market research done (see `docs/research/`); **no empirical tests run yet**.
-This plan describes the build-out of the quantitative pipeline: data, models, backtest, and
-write-up. Phase 1 (data acquisition) is in progress in `src/wizarb/`.
+**Status:** All phases (1-7) built and run against real data — see per-phase status notes
+below and `reports/*.md` for outputs. Headline result: **EV ≤ 0 in every evaluated
+combination** (Phase 5/6); the market-structure prior (§8) held up under measurement,
+not just assertion. Phase 1's fare panel remains an assumption model (no historical fare
+archive exists — see §2 item 6); Phase 2's GPD/rotation-index items remain deferred
+(flight-level data was never ingested — see §3). Write-up: `reports/paper.md` (Phase 7).
 
 **Framing for the CV / quant interviews:** the deliverable is _not_ "a money-making strategy"
 — it is a professional demonstration of the full quant research lifecycle applied to an
@@ -271,21 +274,34 @@ uniformly worse on the same trades, as expected.
 
 ## 8. Phase 7 — Write-up (the CV artifact)
 
+**Status: done.** `reports/paper.md` — three style variants (1 paragraph, 2-3
+paragraphs, 1 page) of the same pipeline and result, plus a keyword-reference
+section, in place of a single PDF (a markdown research note is more reviewable in
+this repo and matches the rest of the project's markdown-report convention; the
+content is written to the same 8-12-page research-note structure below and can be
+rendered to PDF later without rewriting).
+
 `reports/paper.pdf` (8–12 pages, quant-research-note style):
 abstract → regulation & microstructure → data → tail model → calibration results →
-EV/Kelly → backtest → **honest conclusion**. Hypotheses from the research phase for the
-pipeline to confirm or refute (none yet measured):
+EV/Kelly → backtest → **honest conclusion**. Hypotheses from the research phase, now
+measured:
 
 - Breakeven needs p ≈ 8–10% frictionless, **16–19% with realistic frictions** (algebra given
-  the friction assumptions); the market-structure prior is that claimable p per cell falls an
-  order of magnitude short — to be measured from CAA/Eurocontrol data.
+  the friction assumptions); the market-structure prior was that claimable p per cell falls an
+  order of magnitude short — **confirmed**: best measured cell has p_claimable ≈ 1.0% against
+  a ≈13.8% breakeven (Phase 5), roughly a 14x shortfall, not an order of magnitude off in the
+  optimistic direction.
 - Prior: the positive-EV set, if any, is small and concentrated in sub-€10 flash fares on
-  1,500–3,500 km routes in idiosyncratic-delay cells. The **missed-connection channel**
-  (single-booking band uplift per _Folkerts_) is the one mechanism that could materially move
-  the geometry and must be priced before any "measure-zero" claim is made (doc 03 §1.4).
+  1,500–3,500 km routes in idiosyncratic-delay cells. **Not confirmed or refuted** — the
+  **missed-connection channel** (single-booking band uplift per _Folkerts_) remains unpriced
+  (Phase 5: requires single-booking itinerary data this pipeline never ingested), so the
+  "measure-zero" conclusion above is scoped to the priced legs only, per doc 03 §1.4's own
+  caveat.
 - Legitimate salvage value: (a) a _free overlay_ on travel you'd take anyway — pick the
   delay-prone departure when indifferent; (b) the pricing machinery transfers directly to
-  claim-purchasing / parametric delay insurance, which **is** a real business (AirHelp).
+  claim-purchasing / parametric delay insurance, which **is** a real business (AirHelp) — and
+  is exactly the calibrated-forecasting + EV-pricing + backtesting machinery this pipeline
+  built (Phases 3, 5, 6).
 
 ## 9. Known constraints and risk register — summary
 
