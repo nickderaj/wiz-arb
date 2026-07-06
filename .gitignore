@@ -1,0 +1,14 @@
+# data: raw downloads are immutable but large; re-fetchable via `make ingest`
+data/raw/
+data/interim/
+data/processed/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+.pytest_cache/
+
+# notebooks
+.ipynb_checkpoints/
