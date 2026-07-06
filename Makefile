@@ -4,7 +4,7 @@
 # PYTHONPATH=src instead of relying on the .pth-based editable hook.
 RUN := PYTHONPATH=src uv run --no-sync python -m
 
-.PHONY: setup ingest panel base-rates shortlist test all
+.PHONY: setup ingest panel base-rates shortlist model-backtest eligibility ev backtest paper test all
 
 setup:
 	uv sync --extra dev
@@ -21,7 +21,19 @@ base-rates:
 shortlist:
 	$(RUN) wizarb.cli shortlist
 
+model-backtest:
+	$(RUN) wizarb.cli model-backtest
+
+eligibility:
+	$(RUN) wizarb.cli eligibility
+
+ev:
+	$(RUN) wizarb.cli ev
+
+backtest:
+	$(RUN) wizarb.cli backtest
+
 test:
 	PYTHONPATH=src uv run --no-sync python -m pytest -q
 
-all: setup ingest panel base-rates shortlist
+all: setup ingest panel base-rates shortlist model-backtest eligibility ev backtest

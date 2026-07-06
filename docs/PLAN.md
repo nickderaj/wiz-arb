@@ -127,9 +127,28 @@ approximated** — see below.
 
 ## 4. Phase 3 — Probability model (the core ML artifact)
 
+**Status: done, on the data actually ingested.** CAA's public CSVs are cell-level
+(airport x destination x airline x month), not flight-level, so the per-flight binary
+target below is reframed as a cell-month binomial rate (`n_ge_3h` of `n_flights`) — see
+`src/wizarb/models/features.py` docstring for why this is a documented substitution, not
+an approximation. Model ladder implemented: (a) two-level empirical-Bayes shrunken cell
+mean, (b) weighted logistic regression, (c) `HistGradientBoostingClassifier` (LightGBM
+substituted — this macOS/uv environment lacks the `libomp` runtime LightGBM's compiled
+extension needs; see `models/ladder.py`). Walk-forward validated 2021–2025 with nested
+isotonic calibration (`models/walkforward.py`, `wizarb model-backtest` →
+`reports/model-backtest.md`). **Result: the shrunken baseline is a strong competitor** —
+calibrated logistic/GBM beat it on 2025 Brier proxy only marginally (0.00038–0.00039 vs.
+0.00039), i.e. most of the signal in this feature set is already captured by
+hierarchical shrinkage; carrier + trailing rate dominate over month/route detail at this
+data grain. `notebooks/02-model.ipynb` not created — output went to a report script,
+consistent with Phase 2.
+
 Binary target: `delay_arrival >= 180 min` (sensitivity band: **170–190 min** — 170 captures the
 doors-open vs on-block measurement gap, _Germanwings_ C-452/13; 190 reflects airlines fighting
-the boundary, so wins concentrated just over 3h are contested).
+the boundary, so wins concentrated just over 3h are contested). **Not implemented**: the
+170/190-min sensitivity band itself, since CAA's percentage columns are banded at 121–180 /
+181–360 / >360 min, not at 170/190 — doing so would require flight-level data (same gap as
+Phase 2's deferred GPD fit).
 
 - **Constraint: booking-time information set only.** Cheap fares are bought 3–10 weeks out
   → no weather, no live rotation state. Features: carrier, route, airport congestion stats,

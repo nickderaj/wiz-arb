@@ -18,6 +18,7 @@ def main() -> None:
     sub.add_parser("build-panel", help="parse raw CSVs into the interim parquet panel")
     sub.add_parser("base-rates", help="compute base-rate tables and report")
     sub.add_parser("shortlist", help="compute the ranked candidate shortlist (doc 02 §4)")
+    sub.add_parser("model-backtest", help="walk-forward validate the P(delay>=3h) model ladder")
 
     args = parser.parse_args()
     if args.cmd == "ingest":
@@ -37,6 +38,10 @@ def main() -> None:
         from wizarb.analysis import shortlist
 
         print(shortlist.write_report())
+    elif args.cmd == "model-backtest":
+        from wizarb.models import walkforward
+
+        print(walkforward.write_report())
 
 
 if __name__ == "__main__":
