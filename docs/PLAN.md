@@ -200,6 +200,24 @@ p_claimable = p̂_delay × p̂(non-extraordinary | delay) × p̂(paid | valid cl
 
 ## 6. Phase 5 — EV engine, Kelly, portfolio simulation
 
+**Status: done, and this is the project's first EV-level empirical result.**
+`src/wizarb/ev/` (`engine.py`, `portfolio.py`, `report.py`); `wizarb ev` →
+`reports/ev.md` + `ev_ranked.csv`. Swept the full 2025 shortlist (579 cells) x 2
+collection paths x 3 wage scenarios (£0/12/25/h) = 3,474 combinations.
+**Result: EV ≤ 0 in every combination evaluated** — the best (Ryanair
+Stansted→Berlin Brandenburg, Feb, DIY, £0/h wage) is EV = **-£26.70/bet** against a
+breakeven p_claimable of 13.8% vs. an actual 1.0%, roughly a 14x shortfall. This
+confirms the market-structure prior (§8) at the EV level, not just the gross
+screening-ratio level (Phase 2's 0.71 max). Monte Carlo on the best cell: mean
+season P&L -£6,555/250 bets, Sharpe -16.7, 95% CI entirely negative. Correlation
+diagnostic behaves as doc 04 §7 argues: gross delay same-day correlation ~0.02 vs.
+claimable (eligibility-filtered) correlation ~0.00 — independent per-flight
+eligibility draws attenuate the clustered tail. **Not priced** (documented in
+`ev/engine.py`): missed-connection uplift, cancellation/re-routing legs,
+duty-of-care value — all need itinerary/cause data this pipeline never ingested;
+only the pure-function 1,500km band-edge screen is included (378/3,474 rows
+flagged). Kelly fraction is 0 everywhere (no positive edge to size into).
+
 - Per-flight EV: `EV = p_claimable × K_net − c − φ` (φ = claim friction + time cost at a
   parameterized wage; report at €0/h, €12/h, €25/h). Use **all-in c** (bag/seat/card fees add
   €10–20 over headline promo fares) and apply a **schedule-change kill probability** (~3–10%

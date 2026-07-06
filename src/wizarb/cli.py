@@ -20,6 +20,7 @@ def main() -> None:
     sub.add_parser("shortlist", help="compute the ranked candidate shortlist (doc 02 §4)")
     sub.add_parser("model-backtest", help="walk-forward validate the P(delay>=3h) model ladder")
     sub.add_parser("eligibility", help="write the documented eligibility/collection haircut table")
+    sub.add_parser("ev", help="apply the EV engine to the shortlist (Phase 5)")
 
     args = parser.parse_args()
     if args.cmd == "ingest":
@@ -47,6 +48,10 @@ def main() -> None:
         from wizarb.eligibility import report
 
         print(report.write_report())
+    elif args.cmd == "ev":
+        from wizarb.ev import report as ev_report
+
+        print(ev_report.write_report())
 
 
 if __name__ == "__main__":
