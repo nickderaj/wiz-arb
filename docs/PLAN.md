@@ -237,6 +237,23 @@ flagged). Kelly fraction is 0 everywhere (no positive edge to size into).
 
 ## 7. Phase 6 — Backtest
 
+**Status: done.** `src/wizarb/backtest/walkforward.py`; `wizarb backtest` →
+`reports/backtest.md` + `backtest_trades.csv`. Walk-forward 2022-2025, trading
+signal = Phase 3's point-in-time shrunken baseline, settlement via Phase 4/5.
+**At the true breakeven margin (trade iff predicted EV > £0), the backtest finds
+zero trades in every year** — the correct behavior given Phase 5's cross-sectional
+result, not a harness bug. A demonstration run at a relaxed margin (predicted EV >
+-£21, chosen because the best predicted EV in the panel is ~-£20.2 — still a
+losing "trade", never a recommendation) exercises the full mechanics: 2 trades,
+total realized EV -£843, 95% bootstrap CI, max drawdown £421, ~4,680 seats/yr
+capacity, mean annualized IRR -99.8%. Regulatory scenario panel: the enacted
+2026 reform's 30-day payment deadline shortens DIY lag 6mo→1.5mo, which
+*compresses* the already-negative annualized IRR further (a faster payout timeline
+makes a no-edge trade's annualized loss rate look worse, not better — it cuts
+friction, it doesn't create edge); the defeated Council 6h-threshold stress case
+(the only exactly CAA-measurable leg of that proposal — 4h has no exact band) is
+uniformly worse on the same trades, as expected.
+
 - Walk-forward: train on years t−3…t−1, "trade" year t (2019 excluded-COVID discussion;
   2022 disruption summer as stress case).
 - Point-in-time discipline: features frozen at simulated booking date (T−28d default);

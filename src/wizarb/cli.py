@@ -21,6 +21,7 @@ def main() -> None:
     sub.add_parser("model-backtest", help="walk-forward validate the P(delay>=3h) model ladder")
     sub.add_parser("eligibility", help="write the documented eligibility/collection haircut table")
     sub.add_parser("ev", help="apply the EV engine to the shortlist (Phase 5)")
+    sub.add_parser("backtest", help="walk-forward trading backtest (Phase 6)")
 
     args = parser.parse_args()
     if args.cmd == "ingest":
@@ -52,6 +53,10 @@ def main() -> None:
         from wizarb.ev import report as ev_report
 
         print(ev_report.write_report())
+    elif args.cmd == "backtest":
+        from wizarb.backtest import walkforward as bt
+
+        print(bt.write_report())
 
 
 if __name__ == "__main__":
